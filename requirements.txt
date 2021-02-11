@@ -1,1 +1,1 @@
-bible==0.2
+bible3
