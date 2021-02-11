@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3.8
 
 import bible
 import csv
@@ -9,7 +9,7 @@ if len(sys.argv) > 1:
     ref_args = sys.argv[1:]
     ref_string = ' '.join(ref_args)
 else:
-    ref_string = raw_input("Reference: ")
+    ref_string = input("Reference: ")
 
 with open('tskxref.txt') as csvFile:
     csvReader = csv.DictReader(csvFile, delimiter='\t')
@@ -17,9 +17,9 @@ with open('tskxref.txt') as csvFile:
 
 reference = bible.Verse(ref_string)
 
-print
-print '# {0}'.format(reference.format())
-print
+print()
+print('# {0}'.format(reference.format()))
+print()
 
 for row in tsk:
     matches_book = int(row['book']) == reference.book
@@ -27,14 +27,14 @@ for row in tsk:
     matches_verse = int(row['verse']) == reference.verse
 
     if matches_book and matches_chapter and matches_verse:
-        print '## {0}'.format(row['words'])
-        print
+        print('## {0}'.format(row['words']))
+        print()
 
         # bible library chokes on mr as an abbreviation for Mark
         ref_string = re.sub(r'\bmr\b', r'Mark', row['refs'])
         refs = ref_string.split(';')
         for ref in refs:
             reference = bible.Verse(ref)
-            print reference.format()
+            print(reference.format())
 
-        print
+        print()
